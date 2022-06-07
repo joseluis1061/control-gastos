@@ -57,7 +57,7 @@ export const Modal = ({setModal, animarModal, setAnimarModal, guardarGasto}) => 
             tipo='error'
           >
             {mensaje}
-          </Mensaje>}
+          </Mensaje>
         }
 
         <div className="campo">
