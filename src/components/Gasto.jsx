@@ -29,14 +29,13 @@ const diccionarioIconos = {
   suscripciones: IconoSuscripciones
 }
 
-export const Gasto = ({gasto}) => {
+export const Gasto = ({gasto, setGastoEditar}) => {
   const {categoria, nombre, cantidad, id, fecha} = gasto;
 
-  
-
+  //Efecto de mover a la derecha e izquierda
   const leadingActions = () =>(
     <LeadingActions>
-      <SwipeAction onClick={()=>console.log('Editar...')}>
+      <SwipeAction onClick={()=>setGastoEditar(gasto)}>
         Editar
       </SwipeAction>
     </LeadingActions>

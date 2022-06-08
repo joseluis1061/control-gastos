@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import {Header} from './components/Header'
 import { ListadoGastos } from './components/ListadoGastos';
 import { Modal } from './components/Modal';
@@ -10,17 +10,28 @@ import IconoNuevoGasto from './img/nuevo-gasto.svg'
 
 function App() {
 
+  const [gastos, setGastos] = useState([]);
+
   const [presupuesto, setPresupuesto] = useState(0);
   const [isValidPresupuesto, setIsValidPresupuesto] = useState(false);
   
-
-
   const [modal, setModal] = useState(false);
   const [animarModal, setAnimarModal] = useState(false);
-  const [gastos, setGastos] = useState([]);
+  
+  const [gastoEditar, setGastoEditar] = useState({});
+
+  useEffect(() => {
+    if(Object.keys(gastoEditar).length > 0){
+      setModal(true);    
+      setTimeout(()=>{
+        setAnimarModal(true);
+      },350);
+    }
+  }, [gastoEditar])
 
   function handleNuevoGasto(){
     setModal(true);    
+    setGastoEditar({});
     setTimeout(()=>{
       setAnimarModal(true);
     },350);
@@ -39,11 +50,9 @@ function App() {
   return (
     <div className={modal? 'fijar':''}>
       <Header
+      gastos = {gastos}
       presupuesto = {presupuesto}
       setPresupuesto = {setPresupuesto}
-
-      gastos = {gastos}
-
       isValidPresupuesto = {isValidPresupuesto}
       setIsValidPresupuesto = {setIsValidPresupuesto}
       />
@@ -52,7 +61,8 @@ function App() {
         (
         <>
           <ListadoGastos
-          gastos = {gastos}
+            gastos = {gastos}
+            setGastoEditar = {setGastoEditar}
           >
 
           </ListadoGastos>
@@ -67,10 +77,11 @@ function App() {
       }
       {modal && 
         <Modal 
-        setModal = {setModal}
-        animarModal = {animarModal}
-        setAnimarModal = {setAnimarModal}
-        guardarGasto = {guardarGasto}
+          setModal = {setModal}
+          animarModal = {animarModal}
+          setAnimarModal = {setAnimarModal}
+          guardarGasto = {guardarGasto}
+          gastoEditar = {gastoEditar}
         />
       }
       

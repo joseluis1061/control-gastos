@@ -4,14 +4,10 @@ import { useState ,useEffect } from 'react'
 
 export const ControlPresupuesto = ({gastos, presupuesto}) => {
 
-  console.log(`Este son gastados: \n ${gastos}`);
-
   const [disponible, setDisponible] = useState(0)
   const [gastado, setGastado] = useState(0)
 
-  useEffect(()=>{
-    console.log(gastos);
-    
+  useEffect(()=>{    
     const totalGastado = gastos.reduce((total, gasto)=> total + gasto.cantidad, 0);
     setGastado(totalGastado);
 
