@@ -36,7 +36,7 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className={modal && 'fijar'}>
       <Header
       presupuesto = {presupuesto}
       setPresupuesto = {setPresupuesto}
