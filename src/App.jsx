@@ -1,6 +1,10 @@
 import { useState } from 'react'
 import {Header} from './components/Header'
+import { ListadoGastos } from './components/ListadoGastos';
 import { Modal } from './components/Modal';
+
+
+import { generarId } from './helpers';
 import IconoNuevoGasto from './img/nuevo-gasto.svg'
 
 
@@ -20,8 +24,17 @@ function App() {
   }
 
   const guardarGasto = gasto =>{
+    gasto.id = generarId();
+    gasto.fecha = Date.now();
+    
+    //Fomratear la fecha
     setGastos([...gastos, gasto])
+    setAnimarModal(false);
+    setTimeout(()=>{
+      setModal(false);
+    },350);
   };
+
   return (
     <div className="App">
       <Header
@@ -33,12 +46,19 @@ function App() {
 
       {isValidPresupuesto &&
         (
-        <div className='nuevo-gasto'>
-          <img src={IconoNuevoGasto} 
-          alt="Icono nuevo gasto" 
-          onClick={handleNuevoGasto}
-          />
-        </div>
+        <>
+          <ListadoGastos
+          gastos = {gastos}
+          >
+
+          </ListadoGastos>
+          <div className='nuevo-gasto'>
+            <img src={IconoNuevoGasto} 
+            alt="Icono nuevo gasto" 
+            onClick={handleNuevoGasto}
+            />
+          </div>
+        </>
         )
       }
       {modal && 
