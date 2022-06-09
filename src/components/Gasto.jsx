@@ -29,7 +29,7 @@ const diccionarioIconos = {
   suscripciones: IconoSuscripciones
 }
 
-export const Gasto = ({gasto, setGastoEditar}) => {
+export const Gasto = ({gasto, setGastoEditar, eliminarGasto}) => {
   const {categoria, nombre, cantidad, id, fecha} = gasto;
 
   //Efecto de mover a la derecha e izquierda
@@ -42,7 +42,10 @@ export const Gasto = ({gasto, setGastoEditar}) => {
   )
   const trailingActions = () =>(
     <TrailingActions>
-      <SwipeAction onClick={()=>console.log('Eliminar...')}>
+      <SwipeAction
+        onClick={()=>console.log(eliminarGasto(id))}
+        destructive = {true}
+        >
         Eliminar
       </SwipeAction>
     </TrailingActions>    
@@ -66,8 +69,12 @@ export const Gasto = ({gasto, setGastoEditar}) => {
               <p className="nombre-gasto">{nombre}</p>
               <p className="nombre-gasto">
                 Agregando {''}
-                <span>{formatearFecha(fecha)}</span></p>
+                <span>{formatearFecha(fecha)}</span>
+              </p>
+              
             </div>
+
+            <p className='cantidad-gasto'>{cantidad}</p>
           </div>
         </div>
       </SwipeableListItem>
